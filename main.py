@@ -1,44 +1,31 @@
-from tkinter import *
-from tkinter import ttk
+import tkinter
+def login():
+    print("------------------------")
+    print(username_entry.get())
+    print(password_entry.get())
 
-def calculate(*args):
-    try:
-        value = float(feet.get())
-        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
-    except ValueError:
-        pass
+window = tkinter.Tk()
+window.title('Hello World')
+window.geometry('340x440')
+window.configure(bg='#333333')
 
-root = Tk()
-root.title('Calculator')
+frame = tkinter.Frame(bg='#333333')
+#pack, place, grid
 
-mainframe=ttk.Frame(root, padding = "400")
-mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
-
-feet = StringVar()
-feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet) #Colocou a variavel feet como variavel de saida
-feet_entry.grid(column=2, row=1, sticky=(W, E))
-
-meters = StringVar()
-ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E)) #Colocou a variavel meters no label como saida
-
-ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=10, row=3, sticky=W)
-
-ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
-ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
-ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
-
-root.style = ttk.Style()
-root.style.configure('Mainframe.TFrame', background='blue')
-
-mainframe.configure(style='Mainframe.TFrame')
+login_label = tkinter.Label(frame, text = "Login",bg='#333333', fg="#FF3399", font=("Arial",30 ))
+username_label = tkinter.Label(frame, text = "Username",bg='#333333', fg="#FFFFFF", font=("Arial",16 ))
+username_entry = tkinter.Entry(frame, textvariable=username_label, font=("Arial",16 ))
+password_label = tkinter.Label(frame, text = "Password",bg='#333333', fg="#FFFFFF", font=("Arial",16 ))
+password_entry = tkinter.Entry(frame, show="*", font=("Arial",16 ))
+login_button = tkinter.Button(frame, text = "Login", bg = "#FF3399", fg="#FFFFFF", font=("Arial",16 ), width=20, command=login)
 
 
-for child in mainframe.winfo_children():
-    child.grid_configure(padx=5, pady=5)
+login_label.grid(row=0, column=0,columnspan=2, sticky="news", pady=40)
+username_label.grid(row=1, column=0)
+username_entry.grid(row=1, column=1, pady=5)
+password_label.grid(row=2, column=0)
+password_entry.grid(row=2, column=1, pady=5)
+login_button.grid(row=3, column=0, columnspan=2,pady=5)
 
-feet_entry.focus()
-root.bind("<Return>", calculate)
-
-root.mainloop()
+frame.pack()
+window.mainloop()
